@@ -14,7 +14,6 @@ import models
 from sqlalchemy.orm import Session
 from starlette.responses import RedirectResponse
 import os
-import glob ## 추가
 import io
 from fastapi.responses import JSONResponse
 
