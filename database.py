@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-# # 연결 DB 정의
+# # DB SQlite 사용
 DB_URL = 'sqlite:///miniP.sqlite'
 
 # # 데이터베이스에 연결하는 엔진을 생성하는 함수
