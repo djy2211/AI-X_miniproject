@@ -1,10 +1,7 @@
-from asyncio import locks
-from anyio import Lock
 import face_recognition
 from fastapi import FastAPI, Form, Request, Depends, WebSocket, WebSocketDisconnect, logger,status, UploadFile, File
 import cv2
 from fastapi.staticfiles import StaticFiles
-import numpy as np
 from starlette.templating import Jinja2Templates
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -14,19 +11,21 @@ import models
 from sqlalchemy.orm import Session
 from starlette.responses import RedirectResponse
 import os
-import io
 from fastapi.responses import JSONResponse
 
-
+#데이터베이스 설정 및 템플릿 경로 지정
 models.Base.metadata.create_all(bind=engine)
 templates = Jinja2Templates(directory="templates")
 
+#FastAPI 앱 설정 및 사진 저장경로 지정, 스태틱 마운트
 app = FastAPI()
 UPLOAD_DIRECTORY = "static/image"
+DOWN_DIRECTORY = "static/Down/"
 
 abs_path = os.path.dirname(os.path.realpath(__file__))
 app.mount("/static", StaticFiles(directory=f"{abs_path}/static"))
 
+# db 의존성 주입 설정
 def get_db():
     db = SessionLocal()
     try: 
@@ -34,12 +33,12 @@ def get_db():
     finally:
         db.close()
 
-@app.get("/")
+@app.get("/") # DB 내용을 인덱스페이지에 연동
 async def home(req: Request, db: Session = Depends(get_db)):
     users = db.query(models.User).all()
     return templates.TemplateResponse("index.html", { "request": req, "users": users })
 
-@app.post("/add")
+@app.post("/add") # 사진을 추가하는 기능
 def add_user(req: Request, image: UploadFile = File(...), user_name: str = Form(...), db: Session = Depends(get_db)):
     
     # 업로드된 이미지 파일의 경로
@@ -48,13 +47,13 @@ def add_user(req: Request, image: UploadFile = File(...), user_name: str = Form(
             file_object.write(image.file.read())
 
     new_user = models.User(user_name=user_name, user_image="static/image/" + user_name + ".jpg")
-    db.add(new_user)
+    db.add(new_user) #DB에 사진 이름과 경로를 저장
 
     db.commit()
     url = app.url_path_for("home")
     return RedirectResponse(url=url, status_code=status.HTTP_303_SEE_OTHER)
 
-@app.get("/delete/{user_id}")
+@app.get("/delete/{user_id}") # 데이터베이스와 다운로드 경로에 사진을 지우는 기능
 def add(req: Request, user_id: int, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.user_id == user_id).first()
     os.remove(user.user_image)
@@ -63,46 +62,10 @@ def add(req: Request, user_id: int, db: Session = Depends(get_db)):
     url = app.url_path_for("home")
     return RedirectResponse(url=url, status_code=status.HTTP_303_SEE_OTHER)
 
-def compare_faces(known_face_encodings, face_encoding_to_check, tolerance=0.25): ## 추가
-    return list(face_recognition.face_distance(known_face_encodings, face_encoding_to_check) <= tolerance)
 
-
-
-
-
-
-@app.get("/testify") ## 추가
+@app.get("/testify") # 시연을 위하여 캠에서 input받은 정보를 사진으로 저장하기 위한 html 템플릿 연결
 async def testify(req: Request, db: Session = Depends(get_db)):
     return templates.TemplateResponse("testify.html", { "request": req})
-
-@app.post("/verify_image/") #추가
-async def verify_image(image: UploadFile = File(...)):
-    db = SessionLocal()
-    all_images = db.query(models.User).all()
-    file_list = [user.user_image for user in all_images]
-
-    try:
-        # 클라이언트에서 전송한 이미지의 얼굴 인코딩 계산
-        image_data = await image.read()
-        img = face_recognition.load_image_file(io.BytesIO(image_data))
-        face_encoding_to_check = face_recognition.face_encodings(img)[0]
-
-        # 데이터베이스 이미지들의 얼굴 인코딩 계산
-        known_face_encodings = []
-        for file in file_list:
-            image_path = file
-            image = face_recognition.load_image_file(image_path)
-            face_encoding = face_recognition.face_encodings(image)[0]
-            known_face_encodings.append(face_encoding)
-
-        # 얼굴 유사도 비교
-        results = compare_faces(known_face_encodings, face_encoding_to_check)
-        if any(results):
-            return JSONResponse(content={"result": "PASS"})
-        else:
-            return JSONResponse(content={"result": "Not PASS"})
-    except Exception as e:
-        return JSONResponse(content={"error": str(e)}, status_code=500)
 
 
 @app.get("/detect")
@@ -113,12 +76,12 @@ async def websocket_handler(websocket: WebSocket):
     await websocket.accept()
     video_capture = cv2.VideoCapture(0)
 
-    db = SessionLocal()
+    db = SessionLocal() # 데이터베이스의 정보를 모두 읽고 이름과 사진 경로를 list로 저장
     all_images = db.query(models.User).all()
     file_list = [user.user_image for user in all_images]
     file_names = [user.user_name for user in all_images]
 
-    known_face_encodings = []
+    known_face_encodings = [] # 경로의 사진을 encoding 한 후, 값을 저장
 
     for file_name in file_list:
         # 이미지 파일을 불러와서 얼굴 인코딩 수행
@@ -138,11 +101,9 @@ async def websocket_handler(websocket: WebSocket):
 
             face_names = []
             for face_encoding in face_encodings:
-                # Initialize variables for comparison
                 name = "denied"
-                min_distance = 0.5  # Set a threshold for face distance
+                min_distance = 0.5 # 인식 기준 관련 값
 
-                # Compare face encoding with known faces
                 for known_encoding, known_name in zip(known_face_encodings, file_names):
                     face_distance = face_recognition.face_distance([known_encoding], face_encoding)[0]
                     if face_distance < min_distance:
@@ -171,10 +132,10 @@ async def websocket_handler(websocket: WebSocket):
 async def websocket_endpoint(websocket: WebSocket):
     await websocket_handler(websocket)
 
-@app.post("/save-image")
+@app.post("/save-image") # testify 의 다운로드 시, 경로 설정 로직
 async def add(fileName: str = Form(...), image: UploadFile = File(...)):
-    save_path = os.path.join(UPLOAD_DIRECTORY, f"{fileName}.jpg")  # 이미지의 저장 경로 설정
-    os.makedirs(UPLOAD_DIRECTORY, exist_ok=True)  # 디렉토리가 없는 경우 생성
+    save_path = os.path.join(DOWN_DIRECTORY, f"{fileName}.jpg")  # 이미지의 저장 경로 설정
+    os.makedirs(DOWN_DIRECTORY, exist_ok=True)  # 디렉토리가 없는 경우 생성
     with open(save_path, "wb") as f:
         f.write(await image.read())
     return {"filename": fileName}
