@@ -26,7 +26,8 @@ FastAPI 를 이용하여
 ![image](https://github.com/djy2211/AI-X_miniproject/assets/131187694/2918ec0d-b2d2-4821-a37b-be102cea5787)
 
 ## 등록된 얼굴을 인식하는 페이지
-![image](https://github.com/djy2211/AI-X_miniproject/assets/131187694/f8e0dfad-1c2b-4c49-8a3e-6ea0ba75c249)
+![image](https://github.com/djy2211/AI-X_miniproject/assets/131187694/18957c45-3a4c-44e3-b74b-1d74255b6050)
+
 
 
 생성
