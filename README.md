@@ -14,12 +14,20 @@
 - pip install python-multipart
 
 # 구현 기능
-face_recognaition 모델을 이용하여 얼굴 인식 기능을 활용한 출입통제시스템 구현
 
-FastAPI를 이용하여 서버를 구현
+## Face_recognition 을 이용하여 등록한 얼굴을 인식하는 시스템 구현
 
-사진을 등록하면, 그 사진과 유사한 얼굴을 인식
+FastAPI 를 이용하여 
 
-등록 시, 로컬에 사진이 다운로드되고 데이터베이스에 이름과 사진 경로가 저장
+## 사진을 등록하는 페이지
+![image](https://github.com/djy2211/AI-X_miniproject/assets/131187694/1567a68d-c361-4232-a1df-ba02ba551329)
 
-데이터베이스의 경로에 저장된 사진들과 Cam으로 입력받은 이미지를 비교하여 얼굴인식
+## 캠을 이용하여 사진을 저장하는 페이지
+![image](https://github.com/djy2211/AI-X_miniproject/assets/131187694/2918ec0d-b2d2-4821-a37b-be102cea5787)
+
+## 등록된 얼굴을 인식하는 페이지
+![image](https://github.com/djy2211/AI-X_miniproject/assets/131187694/f8e0dfad-1c2b-4c49-8a3e-6ea0ba75c249)
+
+
+생성
+
