@@ -13,6 +13,8 @@
 - pip install face_recognition
 - pip install python-multipart
 
+### pip 이후, 터미널에서 "uvicorn main:app" 으로 실행
+
 # 구현 기능
 
 ## Face_recognition 을 이용하여 등록한 얼굴을 인식하는 시스템 구현
@@ -52,5 +54,5 @@ FastAPI 를 이용하여
 
 ## Home 에 등록된 사진을 기반으로 detect 기능 수행
 
-## 저장된 사진의 인물인 경우 'access' 표시
+## DB에 저장된 경로를 확인하여 사진 파일 read, 사진의 얼굴인 경우 'access' 표시
 > ![image](https://github.com/djy2211/AI-X_miniproject/assets/131187694/be158d0d-56b4-473d-b6ca-799432e4f451)
