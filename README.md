@@ -41,7 +41,7 @@ Face_recognition / https://github.com/ageitgey/face_recognition
 # 페이지 관련 내용
 
 ## 1 사진을 등록하는 페이지 ( Home )
-![image](https://github.com/djy2211/AI-X_miniproject/assets/131187694/1567a68d-c361-4232-a1df-ba02ba551329)
+<img src="https://github.com/djy2211/AI-X_miniproject/assets/131187694/1567a68d-c361-4232-a1df-ba02ba551329" width="600" height="400"/>
 
 위에서 설명한 2번 기능(유저를 등록하는 기능)을 구현하기 위하여 작성한 페이지
 
@@ -50,7 +50,7 @@ Face_recognition / https://github.com/ageitgey/face_recognition
 #
 
 ## 2 캠을 이용하여 사진을 저장하는 페이지 ( Search )
-![image](https://github.com/djy2211/AI-X_miniproject/assets/131187694/2918ec0d-b2d2-4821-a37b-be102cea5787)
+<img src="https://github.com/djy2211/AI-X_miniproject/assets/131187694/2918ec0d-b2d2-4821-a37b-be102cea5787" width="600" height="400"/>
 
 꼭 필요한 기능은 아니지만, 웹캠을 통하여 사진을 찍기위하여 만든 페이지
 
@@ -61,8 +61,7 @@ Face_recognition / https://github.com/ageitgey/face_recognition
 #
 
 ## 3 등록된 얼굴을 인식하는 페이지 ( detect )
-![image](https://github.com/djy2211/AI-X_miniproject/assets/131187694/18957c45-3a4c-44e3-b74b-1d74255b6050)
-<img src="https://github.com/djy2211/AI-X_miniproject/assets/131187694/18957c45-3a4c-44e3-b74b-1d74255b6050" width="200" height="400"/>
+<img src="https://github.com/djy2211/AI-X_miniproject/assets/131187694/18957c45-3a4c-44e3-b74b-1d74255b6050" width="600" height="400"/>
 
 1번 기능과 3번 기능을 구현하기 위한 페이지
 
@@ -71,4 +70,4 @@ Face_recognition / https://github.com/ageitgey/face_recognition
 #
 
 ## DB에 저장된 정보를 확인하여 'access' 표시
-> ![image](https://github.com/djy2211/AI-X_miniproject/assets/131187694/be158d0d-56b4-473d-b6ca-799432e4f451)
+<img src="https://github.com/djy2211/AI-X_miniproject/assets/131187694/be158d0d-56b4-473d-b6ca-799432e4f451" width="600" height="400"/>
