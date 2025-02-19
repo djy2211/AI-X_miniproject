@@ -62,8 +62,7 @@ Face_recognition / https://github.com/ageitgey/face_recognition
 
 ## 3 등록된 얼굴을 인식하는 페이지 ( detect )
 ![image](https://github.com/djy2211/AI-X_miniproject/assets/131187694/18957c45-3a4c-44e3-b74b-1d74255b6050)
-
-<img src="https://user-images.githubusercontent.com/51365114/119627750-716f3100-be47-11eb-8e83-686b23c2c161.png](https://github-production-user-asset-6210df.s3.amazonaws.com/131187694/307572820-18957c45-3a4c-44e3-b74b-1d74255b6050.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250219%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250219T132956Z&X-Amz-Expires=300&X-Amz-Signature=fd01b0e690e5fa0b14acb66e76415b8bbc496541da3569db4c10751d845e86a2&X-Amz-SignedHeaders=host)  width="200" height="400"/>
+<img src="https://github.com/djy2211/AI-X_miniproject/assets/131187694/18957c45-3a4c-44e3-b74b-1d74255b6050" width="200" height="400"/>
 
 1번 기능과 3번 기능을 구현하기 위한 페이지
 
