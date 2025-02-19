@@ -38,7 +38,7 @@ Face_recognition / https://github.com/ageitgey/face_recognition
 위 기능들을 FastAPI를 통하여 로컬서버를 통한 웹페이지에서 구현되도록 코드 작성
 
 
-<페이지 관련 내용>
+# 페이지 관련 내용
 
 ## 사진을 등록하는 페이지 ( Home )
 ![image](https://github.com/djy2211/AI-X_miniproject/assets/131187694/1567a68d-c361-4232-a1df-ba02ba551329)
